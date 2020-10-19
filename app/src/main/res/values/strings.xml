@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Routes</string>
+    <string name="gps_network_not_enabled">gps not enabled</string>
+    <string name="take_image">Take Image</string>
+    <string name="take_image_done">Take Image(Done)</string>
+    <string name="crash_toast_text">Crushed!</string>
+</resources>
