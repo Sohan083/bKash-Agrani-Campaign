@@ -72,6 +72,8 @@ public class FormActivity extends AppCompatActivity {
 
     TextView txtName, txtTeam, txtBranch, txtTodayCount, txtTotalCount, imageStatus;
     String consumerName = "", consumerPhone = "", consumerAccount = "", remarks = "";
+    String hasBkashAccount = "0", hasSmartPhone = "0", hasBkashLinked = "0", hasBkashAppDownload = "0", hasBkashLogin = "0", hasAppTransaction = "0", hasBkashOpening = "0",
+    hasBkashPayment = "0";
 
     ImageButton logoutBtn, imageBtn;
     Button submitBtn;
@@ -136,18 +138,47 @@ public class FormActivity extends AppCompatActivity {
         chk6 = binding.chkbox6;
 
 
-        imageStatus = findViewById(R.id.imageStatus);
+        imageStatus = binding.imageStatus;
+
+
+        bkashRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i){
+                    case R.id.bkashRadioGroupYes:
+                        hasBkashAccount = "1";
+                        break;
+                    case R.id.bkashRadioGroupNo:
+                        hasBkashAccount = "0";
+                        break;
+                }
+            }
+        });
+
+        smartPhoneRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i){
+                    case R.id.smartPhoneRadioGroupYes:
+                        hasSmartPhone = "1";
+                        break;
+                    case R.id.smartPhoneRadioGroupNo:
+                        hasSmartPhone = "0";
+                        break;
+                }
+            }
+        });
 
         chk1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-
+                    hasBkashLinked = "1";
                 }
                 else
                 {
-
+                    hasBkashLinked = "0";
                 }
             }
         });
@@ -156,11 +187,11 @@ public class FormActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-
+                    hasBkashAppDownload = "1";
                 }
                 else
                 {
-
+                    hasBkashAppDownload = "0";
                 }
             }
         });
@@ -169,11 +200,11 @@ public class FormActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-
+                    hasBkashLogin = "1";
                 }
                 else
                 {
-
+                    hasBkashLogin = "0";
                 }
             }
         });
@@ -182,11 +213,11 @@ public class FormActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-
+                    hasAppTransaction = "1";
                 }
                 else
                 {
-
+                    hasAppTransaction = "0";
                 }
             }
         });
@@ -195,11 +226,11 @@ public class FormActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-
+                    hasBkashOpening = "1";
                 }
                 else
                 {
-
+                    hasBkashOpening = "0";
                 }
             }
         });
@@ -208,11 +239,11 @@ public class FormActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-
+                    hasBkashPayment = "1";
                 }
                 else
                 {
-
+                    hasBkashPayment = "0";
                 }
             }
         });
@@ -439,7 +470,7 @@ public class FormActivity extends AppCompatActivity {
             return;
         }
         imageString =CustomUtility.imageToString(bitmap);
-        String upLoadServerUri = "https://sec.imslpro.com/api/android/insert_attendance.php";
+        String upLoadServerUri = "https://routes.atmdbd.com/api/consumer/insert_consumer.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, upLoadServerUri,
                 new Response.Listener<String>() {
                     @Override
@@ -501,10 +532,22 @@ public class FormActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("UserId",userId);
-                params.put("InTimeLat",presentLat);
-                params.put("InTimeLon",presentLon);
-                params.put("InTimeAccuracy",presentAcc);
-                params.put("InTimePictureName",photoName);
+                params.put("Latitude",presentLat);
+                params.put("Longitude",presentLon);
+                params.put("Accuracy",presentAcc);
+                params.put("Name",consumerName);
+                params.put("Mobile",consumerPhone);
+                params.put("BankAccount",consumerAccount);
+                params.put("HasBKashAccount",hasBkashAccount);
+                params.put("HasSmartPhone",hasSmartPhone);
+                params.put("HasLinkAccountActivation",hasBkashLinked);
+                params.put("HasBKashAppDownload",hasBkashAppDownload);
+                params.put("HasBKashAppLogin",hasBkashLogin);
+                params.put("HasAppTransaction",hasAppTransaction);
+                params.put("HasBKashAccountOpening",hasBkashOpening);
+                params.put("HasBKashPayment",hasBkashPayment);
+                params.put("Remark",remarks);
+                params.put("PictureName",photoName);
                 params.put("PictureData",imageString);
                 return params;
             }

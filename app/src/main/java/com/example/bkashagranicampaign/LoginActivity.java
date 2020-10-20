@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
     public void login(final String user_name, final String user_pass)
     {
         Log.e("uname+upass",user_name + " "+user_pass);
-        String upLoadServerUri = "https://bkash.imslpro.com/api/login/login.php";
+        String upLoadServerUri = "https://routes.atmdbd.com/api/login/login.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, upLoadServerUri,
                 new Response.Listener<String>() {
                     @Override

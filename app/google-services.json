@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "242808498956",
+    "firebase_url": "https://routes-d25f2.firebaseio.com",
+    "project_id": "routes-d25f2",
+    "storage_bucket": "routes-d25f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242808498956:android:e125b715961da335eb3729",
+        "android_client_info": {
+          "package_name": "com.example.bkashagranicampaign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242808498956-21emi2rem3380buk08p894a6fqdld9uc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvPIx_trt7Ey1c1AnAh0Qb5nDAclqMBh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242808498956-21emi2rem3380buk08p894a6fqdld9uc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
