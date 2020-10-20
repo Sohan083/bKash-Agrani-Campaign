@@ -70,7 +70,7 @@ public class FormActivity extends AppCompatActivity {
     SweetAlertDialog pDialog;
     JSONObject jsonObject;
 
-    TextView txtName, txtTeam, txtBranch, txtTodayCount, txtTotalCount, imageStatus;
+    TextView txtId, txtName, txtTeam, txtArea, txtTodayCount, txtTotalCount, imageStatus;
     String consumerName = "", consumerPhone = "", consumerAccount = "", remarks = "";
     String hasBkashAccount = "0", hasSmartPhone = "0", hasBkashLinked = "0", hasBkashAppDownload = "0", hasBkashLogin = "0", hasAppTransaction = "0", hasBkashOpening = "0",
     hasBkashPayment = "0";
@@ -112,9 +112,10 @@ public class FormActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
         userId = sharedPreferences.getString("id",null);
 
+        txtId = binding.id;
         txtName = binding.name;
         txtTeam = binding.team;
-        txtBranch = binding.branch;
+        txtArea = binding.area;
         txtTodayCount = binding.todayCount;
         txtTotalCount = binding.totalCount;
 
@@ -310,7 +311,22 @@ public class FormActivity extends AppCompatActivity {
                 if(flag)
                 {
                     Log.e("checking","Okkk");
-                    upload();
+                    SweetAlertDialog c = new SweetAlertDialog(getApplicationContext(),SweetAlertDialog.WARNING_TYPE);
+                    c.setTitleText("Are you sure?");
+                    c.setCancelButton("No", new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            c.dismissWithAnimation();
+                        }
+                    });
+                    c.setConfirmButton("Ok", new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            c.dismissWithAnimation();
+                            upload();
+                        }
+                    });
+                    c.show();
                 }
             }
         });
@@ -320,8 +336,10 @@ public class FormActivity extends AppCompatActivity {
         intent = new Intent(BROADCAST_ACTION);
         GPS_Start();
 
+        txtId.setText(sharedPreferences.getString("id",null));
         txtName.setText(sharedPreferences.getString("name", (String) null));
         txtTeam.setText(sharedPreferences.getString("team", (String) null));
+        txtArea.setText(sharedPreferences.getString("area",null));
         getStatus();
     }
 

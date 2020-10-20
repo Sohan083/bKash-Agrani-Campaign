@@ -127,22 +127,22 @@
                         app:layout_constraintTop_toBottomOf="@+id/id" />
 
                     <TextView
-                        android:id="@+id/txtBranch"
+                        android:id="@+id/txtArea"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Branch/Area: "
+                        android:text="Area: "
                         android:textColor="@color/ash"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txtTeam" />
                     <TextView
-                        android:id="@+id/branch"
+                        android:id="@+id/area"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginLeft="5dp"
                         android:text=""
                         android:textColor="@color/ash"
-                        app:layout_constraintStart_toEndOf="@+id/txtBranch"
+                        app:layout_constraintStart_toEndOf="@+id/txtArea"
                         app:layout_constraintTop_toBottomOf="@+id/team" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -385,7 +385,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Consumer has smartphone?"
-                    android:textColor="@color/yellow"
+                    android:textColor="@color/chocolate"
                     android:textSize="@dimen/tittle_text_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/smartPhoneRadioGroup"
@@ -417,7 +417,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Consumer has bKash account?"
-                    android:textColor="@color/yellow"
+                    android:textColor="@color/chocolate"
                     android:textSize="@dimen/tittle_text_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/bkashRadioGroup"

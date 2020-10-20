@@ -160,10 +160,11 @@ public class LoginActivity extends AppCompatActivity {
                                 jsonObject = jsonObject.getJSONObject("userData");
                                 sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
                                 SharedPreferences.Editor editor = getSharedPreferences("user",MODE_PRIVATE).edit();
-                                editor.putString("name",jsonObject.getString("UserFullName"));
-                                editor.putString("id",jsonObject.getString("RecordId"));
-                                editor.putString("area",jsonObject.getString("AreaName"));
-                                editor.putString("team",jsonObject.getString("TeamName"));
+                                editor.putString("name",jsonObject.getString("user_full_name"));
+                                editor.putString("id",jsonObject.getString("id"));
+                                editor.putString("area",jsonObject.getString("area_name"));
+                                editor.putString("team",jsonObject.getString("team_name"));
+                                //editor.putString("branch",jsonObject.getString("branch_name"));
                                 editor.apply();
                                 Intent intent = new Intent(getApplicationContext(),FormActivity.class);
                                 startActivity(intent);
