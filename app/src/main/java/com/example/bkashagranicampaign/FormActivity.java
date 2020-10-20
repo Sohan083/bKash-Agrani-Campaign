@@ -311,7 +311,7 @@ public class FormActivity extends AppCompatActivity {
                 if(flag)
                 {
                     Log.e("checking","Okkk");
-                    SweetAlertDialog c = new SweetAlertDialog(getApplicationContext(),SweetAlertDialog.WARNING_TYPE);
+                    SweetAlertDialog c = new SweetAlertDialog(FormActivity.this,SweetAlertDialog.WARNING_TYPE);
                     c.setTitleText("Are you sure?");
                     c.setCancelButton("No", new SweetAlertDialog.OnSweetClickListener() {
                         @Override
@@ -415,8 +415,10 @@ public class FormActivity extends AppCompatActivity {
         }
         else if(!photoFlag)
         {
-            CustomUtility.showWarning(FormActivity.this,"Please take a selfie","Required fields");
-            return false;
+            //CustomUtility.showWarning(FormActivity.this,"Please take a selfie","Required fields");
+            //return false;
+
+            currentPhotoPath = "";
         }
         else if(presentAcc.equals(""))
         {
@@ -430,7 +432,7 @@ public class FormActivity extends AppCompatActivity {
         sweetAlertDialog = new SweetAlertDialog(this, 5);
         sweetAlertDialog.setTitleText("Loading");
         sweetAlertDialog.show();
-        MySingleton.getInstance(this).addToRequestQue(new StringRequest(1, "https://bkash.imslpro.com/api/consumer/user_status.php", new Response.Listener<String>() {
+        MySingleton.getInstance(this).addToRequestQue(new StringRequest(1, "https://routes.atmdbd.com/api/consumer/user_status.php", new Response.Listener<String>() {
             public void onResponse(String response) {
                 try {
                     sweetAlertDialog.dismiss();
@@ -478,16 +480,24 @@ public class FormActivity extends AppCompatActivity {
 
         pDialog = new SweetAlertDialog(FormActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.show();
-        Uri uri = Uri.fromFile(new File(currentPhotoPath));
-        try{
-            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-        } catch (IOException e) {
-            pDialog.dismiss();
-            String err = e.getMessage() + " May be storage full please uninstall then install the app again";
-           CustomUtility.showAlert(this, e.getMessage(), "Problem Creating Bitmap at Submit");
-            return;
+        if(!currentPhotoPath.equals(""))
+        {
+            Uri uri = Uri.fromFile(new File(currentPhotoPath));
+            try{
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            } catch (IOException e) {
+                pDialog.dismiss();
+                String err = e.getMessage() + " May be storage full please uninstall then install the app again";
+                CustomUtility.showAlert(this, e.getMessage(), "Problem Creating Bitmap at Submit");
+                return;
+            }
+            imageString =CustomUtility.imageToString(bitmap);
         }
-        imageString =CustomUtility.imageToString(bitmap);
+        else
+        {
+            photoName = "";
+            imageString = "";
+        }
         String upLoadServerUri = "https://routes.atmdbd.com/api/consumer/insert_consumer.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, upLoadServerUri,
                 new Response.Listener<String>() {
@@ -501,14 +511,7 @@ public class FormActivity extends AppCompatActivity {
                             String message = jsonObject.getString("message");
                             if(code.equals("true"))
                             {
-                                File fdelete = new File(currentPhotoPath);
-                                if (fdelete.exists()) {
-                                    if (fdelete.delete()) {
-                                        System.out.println("file Deleted :" + currentPhotoPath);
-                                    } else {
-                                        System.out.println("file not Deleted :" + currentPhotoPath);
-                                    }
-                                }
+
                                 code = "Successful";
                                 new SweetAlertDialog(FormActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                         .setTitleText("Successful")
@@ -518,6 +521,17 @@ public class FormActivity extends AppCompatActivity {
                                             @Override
                                             public void onClick(SweetAlertDialog sDialog) {
                                                 sDialog.dismissWithAnimation();
+                                                if(!currentPhotoPath.equals(""))
+                                                {
+                                                    File fdelete = new File(currentPhotoPath);
+                                                    if (fdelete.exists()) {
+                                                        if (fdelete.delete()) {
+                                                            System.out.println("file Deleted :" + currentPhotoPath);
+                                                        } else {
+                                                            System.out.println("file not Deleted :" + currentPhotoPath);
+                                                        }
+                                                    }
+                                                }
                                                 startActivity(getIntent());
                                                 finish();
                                             }
@@ -673,4 +687,18 @@ public class FormActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        SweetAlertDialog c = new SweetAlertDialog(FormActivity.this, SweetAlertDialog.WARNING_TYPE);
+        c.setConfirmButton("Ok", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                c.dismissWithAnimation();
+                finish();
+            }
+        });
+        c.setCancelText("Cancel");
+        c.show();
+    }
 }
