@@ -2,4 +2,5 @@
 <resources>
 
     <dimen name="tittle_text_size">16sp</dimen>
+    <dimen name="box_height">35dp</dimen>
 </resources>

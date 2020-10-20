@@ -323,7 +323,7 @@ public class FormActivity extends AppCompatActivity {
 
     private File createImageFile() throws IOException {
 
-        File storageDir = getExternalFilesDir("bKashAgrani/Photos");
+        File storageDir = getExternalFilesDir("Routes/Photos");
 
         File image = new File(storageDir.getAbsolutePath() + File.separator + photoName);
         try {
@@ -354,7 +354,7 @@ public class FormActivity extends AppCompatActivity {
             CustomUtility.showWarning(FormActivity.this,"Please enter consumer phone number","Required fields");
             return false;
         }
-        else if(isCorrectPhoneNumber(consumerPhone))
+        else if(!isCorrectPhoneNumber(consumerPhone))
         {
             CustomUtility.showWarning(FormActivity.this,"Please enter correct phone number","Required fields");
             return false;
